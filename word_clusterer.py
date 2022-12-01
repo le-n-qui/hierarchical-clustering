@@ -42,6 +42,9 @@ def main():
     # get the number of clusters specified on terminal
     num_clusters = int(args[1])
     
+    # get a list of files from directory
+    file_list = glob.glob(dir_path+"/*.txt")
+
 
 def hash_fn_1(word):
     """This hash function maps
@@ -66,9 +69,15 @@ def hash_fn_2(word):
        maps a string to 
        plus or minus one.
     """
-    str_value = hash(word)
+    str_value = 0
 
-    return int(numpy.tanh(str_value))
+    for pos in range(len(word)):
+        str_value += (ord(word[pos]) * (pos + 1))
+
+    if str_value % 2:
+        return 1
+
+    return -1
 
 # Execute script
 if __name__ == "__main__":
