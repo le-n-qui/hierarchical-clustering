@@ -2,9 +2,13 @@
 
 # Import libraries
 import glob
+import numpy
 import os
 import os.path
 import sys
+
+# Constant
+VECTOR_SIZE = 10
 
 # Main method
 def main():
@@ -37,8 +41,9 @@ def main():
     
     # get the number of clusters specified on terminal
     num_clusters = int(args[1])
+    
 
-def hash_fn_1(word, vector_size):
+def hash_fn_1(word):
     """This hash function maps
        a string to a number
        between 0 and 9.
@@ -54,7 +59,16 @@ def hash_fn_1(word, vector_size):
         # in the string
         total += (ord(word[pos]) * (pos + 1))
 
-    return total % vector_size
+    return total % VECTOR_SIZE
+
+def hash_fn_2(word):
+    """This hash function
+       maps a string to 
+       plus or minus one.
+    """
+    str_value = hash(word)
+
+    return int(numpy.tanh(str_value))
 
 # Execute script
 if __name__ == "__main__":
