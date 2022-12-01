@@ -20,6 +20,7 @@ def main():
 
     # if args is a list of 2 items
     # check first item
+    # get the full directory path
     dir_path = os.path.join(os.getcwd(), args[0])
     if not os.path.isdir(dir_path):
         # show instruction
@@ -33,6 +34,27 @@ def main():
         print("usage: directory-name num-of-clusters")
         print("warning: provide an integer in the set of natural number")
         sys.exit(1)
+    
+    # get the number of clusters specified on terminal
+    num_clusters = int(args[1])
+
+def hash_fn_1(word, vector_size):
+    """This hash function maps
+       a string to a number
+       between 0 and 9.
+    """
+    # keep the total value
+    # after adding values
+    # represented by each character
+    total = 0
+
+    for pos in range(len(word)):
+        # add value for each character 
+        # multiplied by their position 
+        # in the string
+        total += (ord(word[pos]) * (pos + 1))
+
+    return total % vector_size
 
 # Execute script
 if __name__ == "__main__":
