@@ -44,6 +44,30 @@ def main():
     
     # get a list of files from directory
     file_list = glob.glob(dir_path+"/*.txt")
+    
+    # file 1
+    file1 = file_list[0]
+
+    doc = {}
+
+    with open(file1) as rFile:
+        for line in rFile:
+            words = line.split()
+            for pos in range(len(words)):
+                w = words[pos]
+                if w == "_": continue
+                if doc.get(w, None):
+                    # vector for word 3
+                    doc[w] = [0]*VECTOR_SIZE
+                    # word 1
+                    doc[w][hash_fn_1(words[pos-2]+"-2")] = hash_fn_2(words[pos-2]+"-2") 
+                    # word 2
+                    doc[w][hash_fn_1(words[pos-1]+"-1")] = hash_fn_2(words[pos-1]+"-1")
+                    # word 4
+                    doc[w][hash_fn_1(words[pos+1]+"+1")] = hash_fn_2(words[pos-2]+"+1")
+                    # word 5
+                    doc[w][hash_fn_1(words[pos+2]+"+2")] = hash_fn_2(words[pos+2]+"+2") 
+
 
 
 def hash_fn_1(word):
