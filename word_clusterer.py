@@ -56,7 +56,7 @@ def main():
             for pos in range(len(words)):
                 w = words[pos]
                 if w == "_": continue
-                if doc.get(w, None):
+                if not doc.get(w, None):
                     # vector for word 3
                     doc[w] = [0]*VECTOR_SIZE
                     # word 1
@@ -67,7 +67,19 @@ def main():
                     doc[w][hash_fn_1(words[pos+1]+"+1")] = hash_fn_2(words[pos-2]+"+1")
                     # word 5
                     doc[w][hash_fn_1(words[pos+2]+"+2")] = hash_fn_2(words[pos+2]+"+2") 
+                else:
+                    doc[w][hash_fn_1(words[pos-2]+"-2")] = hash_fn_2(words[pos-2]+"-2") 
+                    # word 2
+                    doc[w][hash_fn_1(words[pos-1]+"-1")] = hash_fn_2(words[pos-1]+"-1")
+                    # word 4
+                    doc[w][hash_fn_1(words[pos+1]+"+1")] = hash_fn_2(words[pos-2]+"+1")
+                    # word 5
+                    doc[w][hash_fn_1(words[pos+2]+"+2")] = hash_fn_2(words[pos+2]+"+2") 
 
+    
+    # Testing
+    print("Document: ", file1)
+    print("Document dictionary: ", doc)
 
 
 def hash_fn_1(word):
